@@ -1,19 +1,22 @@
 class NlpController < ApplicationController
 
 	def home
-		
+
 	end
 
-	def sentiment
+	def executeScripts
 		
-		command = 'py ' + Dir.pwd + '/app/assets/Python/textblob_sentiment.py "' + params[:text] + '"'
 
-		render :text =>  %x[ #{command} ]
-	end
+		json = '{ "text" : "' + params[:text] + '"'
+		
+		params[:scripts].split('+').each do|s| 
 
-	def key_words
-		command = 'py ' + Dir.pwd + '/app/assets/Python/textblob_key_words.py "' + params[:text] + '"'
+			command = 'py ' + Dir.pwd + '/app/assets/Python/textblob_' + s + '.py "' + params[:text] + '"'
+			json += ', "' + s + '":"'  + %x[ #{command} ] + '"'
+		end
+		
+		json += "}"
 
-		render :text =>  %x[ #{command} ]
+		render :text => json
 	end
 end

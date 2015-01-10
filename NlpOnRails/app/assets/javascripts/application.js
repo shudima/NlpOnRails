@@ -16,11 +16,22 @@
 //= require_tree .
 $(document).ready(function(){
 
+	$("#allButton").click(function() { 
+	 $("#all").html("Wait for it ...");
+	  $.ajax({
+	  			url:"http://localhost:3000/nlp/sentiment+key_words/" + $("#text").val(),
+	  			success:function(result){
+	    									$("#all").html(result);
+	 								    },
+  	  			error:function(result){
+    									$("#all").html("Error");
+ 								    }
+	  });
+	});
 
 
 	$("#sentimentButton").click(function(){
 		$("#sentiment").html("Wait for it ...");
-		//alert("http://localhost:3000/nlp/sentiment/" + $("#text").value)
 	  $.ajax({
 	  			url:"http://localhost:3000/nlp/sentiment/" + $("#text").val(),
 	  			success:function(result){
@@ -35,7 +46,6 @@ $(document).ready(function(){
 
 	$("#keyWordsButton").click(function(){
 		$("#key_words").html("Wait for it ...");
-		//alert("http://localhost:3000/nlp/sentiment/" + $("#text").value)
 	  $.ajax({
 	  			url:"http://localhost:3000/nlp/key_words/" + $("#text").val(),
 	  			success:function(result){

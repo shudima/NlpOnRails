@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-   get 'nlp/sentiment/:text' => 'nlp#sentiment'
-   get 'nlp/key_words/:text' => 'nlp#key_words'
+
+   get 'nlp/:scripts/:text' => 'nlp#executeScripts'
+   #get 'nlp/sentiment/:text' => 'nlp#sentiment'
+   #get 'nlp/key_words/:text' => 'nlp#key_words'
    get 'nlp/' => 'nlp#home'
    root 'nlp#home'
    
